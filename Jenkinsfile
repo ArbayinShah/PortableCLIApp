@@ -159,5 +159,48 @@ pipeline {
             }
         }
     }
+    
+    /*
+     * Pipeline-level post actions run after the stages have completed.
+     *
+     * The "always" condition means that Jenkins attempts to process the test
+     * results regardless of whether the pipeline succeeds, fails or becomes
+     * unstable.
+     *
+     * This is particularly important when unit tests fail. The dotnet test
+     * command returns a non-zero exit code when a test fails, causing the
+     * Test stage to fail. The post action can still process the generated
+     * TRX report and show which tests failed.
+     */
+
+    post {
+        always {
+
+            /*
+             * Publish every TRX test-result file generated under the
+             * test-results directory.
+             *
+             * The Jenkins MSTest plugin converts the TRX results into the
+             * internal test-result representation used by Jenkins.
+
+            * Do not fail the pipeline merely because the publisher
+            * encounters a report-processing problem.
+            *
+            * Actual test failures are still reported by dotnet test.
+
+            * Preserve test standard output in the Jenkins test report.
+            * This can help diagnose failed tests, although it can consume
+            * more Jenkins storage when tests produce extensive output.
+            */
+
+
+            mstest(
+                testResultsFile:
+                    'artifacts/test-results/**/*.trx',
+                failOnError: false,
+                keepLongStdio: true
+            )
+        }
+    }
 
 }
