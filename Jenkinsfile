@@ -19,7 +19,7 @@ pipeline {
         /*
         * Place the URL for your remote repo (GitHub, BitBucket) here
         */
-        REMOTE_REPO_URL = 'https://github.com/ArbayinShah/DotNetWebApp.git'
+        REMOTE_REPO_URL = 'https://github.com/ArbayinShah/PortableCLIApp.git'
 
         /*
         * Place a random port in your assigned port range here
