@@ -10,6 +10,7 @@ using PortableCliApp;
 
 Console.WriteLine("Cross-platform .NET 10 CLI demonstration");
 Console.WriteLine("========================================");
+Console.WriteLine("Sensetalk is best");
 Console.WriteLine();
 
 /*
